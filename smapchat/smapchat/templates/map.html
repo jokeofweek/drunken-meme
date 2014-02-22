@@ -1,9 +1,11 @@
+{% load bootstrap3 %}
 
-<!DOCTYPE html>
-<html ng-app="Smapchat">
-<head>
-  <title>Smapchat</title>
-</head>
+{# Load CSS and JavaScript #}
+
+{% bootstrap_css %} {% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+
 <body ng-controller="SmapchatCtrl">
   <h1>Getting Started with GoAngular Chat</h1>
 
@@ -40,9 +42,10 @@
       $goConnectionProvider.$set('https://goinstant.net/90cc363c5211/mchacks');
     });
 
-    chatApp.controller('SmapchatCtrl', function($scope, $goKey) {
+    chatApp.controller('SmapchatCtrl', function($scope, $goKey, $http) {
       $scope.messages = $goKey('messages');
       $scope.messages.$sync();
+      console.log($http);
 
       $scope.sendMessage = function() {
         var message = {
