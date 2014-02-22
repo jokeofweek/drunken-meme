@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html ng-app="Smapchat">
+<head>
+  <title>Smapchat</title>
+</head>
+<body ng-controller="SmapchatCtrl">
+  <h1>Getting Started with GoAngular Chat</h1>
+
+  <!-- Messages displayed -->
+  <div id="messages">
+    <div class="message" ng-repeat="message in messages">
+      <span class="author">{{ message.author }}</span>
+      <span class="content">{{ message.content }}</span>
+    </div>
+  </div>
+
+  <!-- New message form -->
+  <form ng-submit="sendMessage()">
+    <input ng-model="author">
+    <input ng-model="messageContent">
+    <input type="submit">
+  </form>
+
+  <!-- Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+  <script src="https://cdn.goinstant.net/v1/platform.min.js"></script>
+  <script src="https://cdn.goinstant.net/integrations/goangular/latest/goangular.min.js"></script>
+
+  <!-- Angular App -->
+  <script>
+    var chatApp = angular.module('Chat', ['goangular']);
+
+    chatApp.config(function($goConnectionProvider) {
+      $goConnectionProvider.$set('https://goinstant.net/90cc363c5211/mchacks');
+    });
+
+    chatApp.controller('SmapchatCtrl', function($scope, $goKey) {
+      $scope.people = $goKey('people');
+      $scope.people.$sync();
+      $scope.people.$on('ready', function() {
+        console.log(":A");
+      });
+
+    });
+  </script>
+</body>
+</html>
