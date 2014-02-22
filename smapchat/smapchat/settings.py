@@ -58,11 +58,11 @@ WSGI_APPLICATION = 'smapchat.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get(‘MCHACKS_DATABASE_NAME’),
-        'USER': os.environ.get(‘MCHACKS_DATABASE_USER’),
-        'PASSWORD': os.environ.get(‘MCHACKS_DATABASE_PASSWORD’),
-        'HOST': os.environ.get(‘MCHACKS_DATABASE_HOST),
-        'PORT': os.environ.get(‘MCHACKS_DATABASE_PORT),
+        'NAME': os.environ.get('MCHACKS_DATABASE_NAME'),
+        'USER': os.environ.get('MCHACKS_DATABASE_USER'),
+        'PASSWORD': os.environ.get('MCHACKS_DATABASE_PASSWORD'),
+        'HOST': os.environ.get('MCHACKS_DATABASE_HOST'),
+        'PORT': os.environ.get('MCHACKS_DATABASE_PORT'),
     }
 }
 
