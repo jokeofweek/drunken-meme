@@ -10,8 +10,8 @@
   <!-- Messages displayed -->
   <div id="messages">
     <div class="message" ng-repeat="message in messages">
-      <span class="author">{{ message.author }}</span>
-      <span class="content">{{ message.content }}</span>
+      <span class="author">{$ message.author $}</span>
+      <span class="content">{$ message.content $}</span>
     </div>
   </div>
 
@@ -29,18 +29,33 @@
 
   <!-- Angular App -->
   <script>
-    var chatApp = angular.module('Chat', ['goangular']);
+    var chatApp = angular.module('Smapchat', ['goangular']);
+
+    chatApp.config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('{$');
+        $interpolateProvider.endSymbol('$}');
+    });
 
     chatApp.config(function($goConnectionProvider) {
       $goConnectionProvider.$set('https://goinstant.net/90cc363c5211/mchacks');
     });
 
     chatApp.controller('SmapchatCtrl', function($scope, $goKey) {
-      $scope.people = $goKey('people');
-      $scope.people.$sync();
-      $scope.people.$on('ready', function() {
-        console.log(":A");
-      });
+      $scope.messages = $goKey('messages');
+      $scope.messages.$sync();
+
+      $scope.sendMessage = function() {
+        var message = {
+          content: $scope.messageContent,
+          author: $scope.author
+        };
+
+        // Each method returns a promise, we can use that to confirm that item was
+        // added successfully
+        $scope.messages.$add(message).then(function() {
+          $scope.messageContent = '';
+        });
+      }
 
     });
   </script>
