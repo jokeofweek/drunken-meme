@@ -1,2 +1,4 @@
 Django==1.6
 psycopg2==2.4
+smtpapi==0.1.1
+sendgrid==0.2.8
