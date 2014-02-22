@@ -13,3 +13,6 @@ def event_json(request):
         ]
     }
     return HttpResponse(json.dumps(obj), content_type="application/json")
+
+def send_mail(request):
+    return HttpResponse("Hey", content_type="text/html")
