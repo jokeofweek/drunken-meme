@@ -14,6 +14,7 @@ from allaccess.views import OAuthCallback, OAuthRedirect
 from jsonview.decorators import json_view
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render
 
 from smapchat.models import Event
 
@@ -80,14 +81,22 @@ def profile(request):
 @login_required
 def join(request):
     if request.user.is_authenticated():
+        eventlist = Event.objects.filter()
+        context = {'eventlist': eventlist}
         try:
-            return HttpResponse("good")
+            return render(request, "join.html", context)
         except IndexError:
             return HttpResponse("index error")
         except Exception:
             return HttpResponse("error")
     else:
         return HttpResponse("stupid")
+
+    eventlist = Event.objects.filter()
+    template = loader.get_template('join.html')
+    context = {'eventlist': eventlist}
+    return render(request, 'test.html', context)
+
 
 @login_required
 def event_json(request, eventId):

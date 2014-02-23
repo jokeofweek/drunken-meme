@@ -1,0 +1,21 @@
+{% extends 'page.html' %}
+
+{% block title %}smapchat{% endblock %}
+{% load staticfiles %}
+
+{% block page_content %}
+<center>
+<h1>Choose your event</h1>
+<p>
+
+{% if eventlist %}
+    {% for event in eventlist %}
+
+        <a class="btn btn-lg btn-primary" href="event/{{event.id}}" role="button">{{event.name}}</a>
+
+        {% endfor %}
+{% endif %}
+
+</p>
+</center>
+{% endblock %}
