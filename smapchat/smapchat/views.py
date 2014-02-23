@@ -77,9 +77,9 @@ def event_json(request):
         'name': "McHacks",
         'desc': 'A Hackathon at McGill',
         'maps': [
-            {'name': 'SSMU Basement', 'source': '/static/ssmubasement.jpg'},
-            {'name': 'SSMU Floor 2', 'source': '/static/ssmu2nd.jpg'},
-            {'name': 'Leacock', 'source': '/static/bigleacock.jpg'}
+            {'name': 'SSMU Floor 1', 'source': '/static/concert.jpg'},
+            {'name': 'SSMU Floor 2', 'source': '/static/concert.jpg'},
+            {'name': 'Leacock', 'source': '/static/concert.jpg'}
         ]
     }
     return HttpResponse(json.dumps(obj), content_type="application/json")

@@ -60,6 +60,9 @@ AUTHENTICATION_BACKENDS = (
     'allaccess.backends.AuthorizedServiceBackend',
 )
 
+LOGIN_URL = '/login'
+LOGOUT_URL = '/logout'
+LOGIN_REDIRECT_URL = '/profile'
 AUTH_PROFILE_MODULE = 'smapchat.UserProfile'
 
 ROOT_URLCONF = 'smapchat.urls'
