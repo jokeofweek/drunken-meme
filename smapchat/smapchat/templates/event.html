@@ -5,23 +5,26 @@
 {% block title %}smapchat{% endblock %}
 
 {% block content %}
-<div ng-controller="SmapchatCtrl" class="jumbotron">
-  <h1>Getting Started with GoAngular Chat</h1>
+<div ng-controller="SmapchatCtrl">
+  <div ng-show="loading" class="loading"><img src=""/>LOADING...</div>
+  <div ng-show="!loading" class="jumbotron">
+    <h1>Getting Started with GoAngular Chat</h1>
 
-  <!-- Messages displayed -->
-  <div id="messages">
-    <div class="message" ng-repeat="message in messages">
-      <span class="author">{$ message.author $}</span>
-      <span class="content">{$ message.content $}</span>
+    <!-- Messages displayed -->
+    <div id="messages">
+      <div class="message" ng-repeat="message in messages">
+        <span class="author">{$ message.author $}</span>
+        <span class="content">{$ message.content $}</span>
+      </div>
     </div>
-  </div>
 
-  <!-- New message form -->
-  <form ng-submit="sendMessage()">
-    <input ng-model="author">
-    <input ng-model="messageContent">
-    <input type="submit">
-  </form>
+    <!-- New message form -->
+    <form ng-submit="sendMessage()">
+      <input ng-model="author">
+      <input ng-model="messageContent">
+      <input type="submit">
+    </form>
+  </div>
 </div>
 {% endblock %}
 
@@ -30,6 +33,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
 <script src="//cdn.goinstant.net/v1/platform.min.js"></script>
 <script src="//cdn.goinstant.net/integrations/goangular/latest/goangular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.min.js"></script>
 
 <!-- Angular App -->
 <script>
@@ -46,8 +50,13 @@
   });
 
   chatApp.controller('SmapchatCtrl', function($scope, $goKey, $http) {
+    $scope.loading = true;
     $scope.messages = $goKey('messages');
     $scope.messages.$sync();
+
+    $scope.messages.$on('ready', function() {
+      $scope.loading = false;
+    });
     console.log($http);
 
     $scope.sendMessage = function() {
