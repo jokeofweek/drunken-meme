@@ -10,7 +10,7 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
   $scope.loading = true;
   $rootScope.messages = $goKey('messages');
   $rootScope.messages.$sync();
-  $rootScope.savedPins = $goKey('savedPins2');
+  $rootScope.savedPins = $goKey('savedPins3');
   $rootScope.savedPins.$sync();
 
   $rootScope.myPin = null;
@@ -53,7 +53,6 @@ smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http
   $rootScope.Math = window.Math;
   $rootScope.mapIndex = $routeParams.mapIndex;
   $rootScope.map = $rootScope.eventInformation.maps[parseInt($rootScope.mapIndex)]
-  $scope.pins = [];
   $scope.imageWidth = 1;
   $scope.imageHeight = 1;
   $rootScope.USER_ID = $window.USER_ID;
@@ -72,10 +71,8 @@ smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http
 
     $rootScope.myPin.x = arg.offsetX / $scope.imageWidth;
     $rootScope.myPin.y = arg.offsetY / $scope.imageHeight;
-    if (isFirst) {
-      $scope.pins.push($rootScope.myPin);
-    }
-    $rootScope.savedPins.$add({x:x, y:y});
+    $rootScope.myPin.userId = $window.USER_ID;
+    $rootScope.savedPins.$add({x:x, y:y, id: $window.USER_ID});
   };
 });
 

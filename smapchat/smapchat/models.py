@@ -12,7 +12,7 @@ class UserProfile(models.Model):
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
-    pref = models.BooleanField()
+    pref = models.BooleanField(default=True)
     def get_full_name(self):
         # The user is identified by their email address
         return self.full_name

@@ -34,6 +34,15 @@ def popover(request, userId):
         'profile': profile
     })
     return HttpResponse(template.render(context))
+
+@login_required
+def contact_dialog(request, userId):
+    profile = UserProfile.objects.get(user_id=userId)
+    template = loader.get_template('contact_dialog.html')
+    context = RequestContext(request, {
+        'profile': profile
+    })
+    return HttpResponse(template.render(context))
     
 class CustomRedirect(OAuthRedirect):
     "Redirect to custom callback."
