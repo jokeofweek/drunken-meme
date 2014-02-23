@@ -2,4 +2,4 @@ Django==1.6
 psycopg2==2.4
 django-bootstrap3==2.6.0
 smtpapi==0.1.1
-sendgrid==0.2.8
+sendgrid==0.2.8twilio==3.6.5
