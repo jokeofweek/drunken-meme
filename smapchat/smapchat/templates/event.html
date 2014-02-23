@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block html_tag_extra%}ng-app="Smapchat"{% endblock %}
+
+{% block title %}smapchat{% endblock %}
+
+{% block content %}
+<div ng-controller="SmapchatCtrl" class="jumbotron">
+  <h1>Getting Started with GoAngular Chat</h1>
+
+  <!-- Messages displayed -->
+  <div id="messages">
+    <div class="message" ng-repeat="message in messages">
+      <span class="author">{$ message.author $}</span>
+      <span class="content">{$ message.content $}</span>
+    </div>
+  </div>
+
+  <!-- New message form -->
+  <form ng-submit="sendMessage()">
+    <input ng-model="author">
+    <input ng-model="messageContent">
+    <input type="submit">
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+<script src="//cdn.goinstant.net/v1/platform.min.js"></script>
+<script src="//cdn.goinstant.net/integrations/goangular/latest/goangular.min.js"></script>
+
+<!-- Angular App -->
+<script>
+//*
+  var chatApp = angular.module('Smapchat', ['goangular']);
+
+  chatApp.config(function($interpolateProvider) {
+      $interpolateProvider.startSymbol('{$');
+      $interpolateProvider.endSymbol('$}');
+  });
+
+  chatApp.config(function($goConnectionProvider) {
+    $goConnectionProvider.$set('https://goinstant.net/90cc363c5211/mchacks');
+  });
+
+  chatApp.controller('SmapchatCtrl', function($scope, $goKey, $http) {
+    $scope.messages = $goKey('messages');
+    $scope.messages.$sync();
+    console.log($http);
+
+    $scope.sendMessage = function() {
+      var message = {
+        content: $scope.messageContent,
+        author: $scope.author
+      };
+
+      // Each method returns a promise, we can use that to confirm that item was
+      // added successfully
+      $scope.messages.$add(message).then(function() {
+        $scope.messageContent = '';
+      });
+    }
+
+  });
+//*/
+</script>
+{% endblock %}

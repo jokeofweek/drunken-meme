@@ -5,6 +5,9 @@ from django.http import HttpResponse
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
+class EventPageView(TemplateView):
+    template_name = 'event.html'
+
 
 def event_json(request):
     obj = {
@@ -16,3 +19,6 @@ def event_json(request):
         ]
     }
     return HttpResponse(json.dumps(obj), content_type="application/json")
+
+def send_mail(request):
+    return HttpResponse("Hey")
