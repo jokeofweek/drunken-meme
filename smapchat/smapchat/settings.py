@@ -62,7 +62,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
-LOGIN_REDIRECT_URL = '/profile'
+LOGIN_REDIRECT_URL = '/join'
 AUTH_PROFILE_MODULE = 'smapchat.UserProfile'
 
 ROOT_URLCONF = 'smapchat.urls'
