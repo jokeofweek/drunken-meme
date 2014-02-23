@@ -118,25 +118,24 @@ def event_json(request, eventId):
         return HttpResponseNotFound(json.dumps({'type': 'error'}), content_type="application/json")
 
 def send_mail(request):
-    print API_KEYS['SG_USER']
-    print API_KEYS['SG_PASS']
     user = API_KEYS['SG_USER']
     pw = API_KEYS['SG_PASS']
     reciever = request.GET['to']
     sender = request.GET['from']
+    subject = request.GET['subject']
+    body = request.GET['body']
 
     sg = sendgrid.SendGridClient(user, pw)
     message = sendgrid.Mail()
     message.add_to(reciever)
-    message.set_subject('Example')
-    message.set_html('Body')
-    message.set_text('Body')
+    message.set_subject(subject)
+    message.set_html(body)
+    message.set_text(body)
     message.set_from(sender)
     print (sg.send(message))
     return HttpResponse(user + " " + pw + " " + reciever + " " + sender)
 
 def send_text(request):
-    # Your Account Sid and Auth Token from twilio.com/user/account
     account_sid = API_KEYS["TWILIO_SID"]
     auth_token = API_KEYS["TWILIO_AUTH"]
     txtfrom = API_KEYS["TWILIO_NUM"]
