@@ -81,7 +81,8 @@ def profile(request):
 @login_required
 def join(request):
     if request.user.is_authenticated():
-        context = {}
+        eventlist = Event.objects.filter()
+        context = {'eventlist': eventlist}
         try:
             return render(request, "join.html", context)
         except IndexError:
@@ -90,6 +91,12 @@ def join(request):
             return HttpResponse("error")
     else:
         return HttpResponse("stupid")
+
+    eventlist = Event.objects.filter()
+    template = loader.get_template('join.html')
+    context = {'eventlist': eventlist}
+    return render(request, 'test.html', context)
+
 
 @login_required
 def event_json(request, eventId):

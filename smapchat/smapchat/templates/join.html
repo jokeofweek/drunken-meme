@@ -8,12 +8,10 @@
 <h1>Choose your event</h1>
 <p>
 
-{% if Event %}
-    {% for event in Event %}
+{% if eventlist %}
+    {% for event in eventlist %}
 
-  <li class="mix category_1" data-cat="1" style="background: url({{poll.url}}); background-size: cover;">
-
-        <a class="btn btn-lg btn-primary" href="url({{event.pk}})" role="button">Login with Facebook</a>
+        <a class="btn btn-lg btn-primary" href="event/{{event.id}}" role="button">{{event.name}}</a>
 
         {% endfor %}
 {% endif %}
