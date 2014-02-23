@@ -55,16 +55,11 @@ WSGI_APPLICATION = 'smapchat.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
+import json
+with open(BASE_DIR + "/../settings.json") as filename:
+	env = json.load(filename)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('MCHACKS_DATABASE_NAME'),
-        'USER': os.environ.get('MCHACKS_DATABASE_USER'),
-        'PASSWORD': os.environ.get('MCHACKS_DATABASE_PASSWORD'),
-        'HOST': os.environ.get('MCHACKS_DATABASE_HOST'),
-        'PORT': os.environ.get('MCHACKS_DATABASE_PORT'),
-    }
+    'default': env
 }
 
 # Internationalization
