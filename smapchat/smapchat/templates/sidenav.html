@@ -2,7 +2,7 @@
   <li ng-repeat="map in eventInformation.maps" ng-class="{'selected':isSelectedMap({$ $index $})}"><a href="#/map/{$ $index $}">{$ map.name $}</a></li>
   <hr class="style-two">
   <li>
-  <li ng-repeat="map in eventInformation.maps" ng-class="{'selected':isSelectedMap({$ $index $})}"><a href="#/map/{$ $index $}">{$ map.name $}</a></li>
+  <li ng-repeat="chat in eventInformation.chats" ng-class="{'selected':isSelectedChat({$ $index $})}"><a href="#/chat/{$ $index $}">{$ chat.name $}</a></li>
   </li>
 </ul>
 <hr/>
