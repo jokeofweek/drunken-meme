@@ -80,7 +80,7 @@ def profile(request):
         else:
             client = access.api_client
             context['info'] = client.get_profile_info(raw_token=access.access_token)
-    return HttpResponse(pprint.pformat(context))
+    return render(request, "profile.html", context)
 
 @login_required
 def usersinfo(request):
@@ -90,8 +90,6 @@ def usersinfo(request):
         return render(request, "usersinfo.html", context)
     except Exception:
         return HttpResponse("whoops")
-
-
 
 @login_required
 def join(request):
@@ -106,12 +104,6 @@ def join(request):
             return HttpResponse("error")
     else:
         return HttpResponse("stupid")
-
-    eventlist = Event.objects.filter()
-    template = loader.get_template('join.html')
-    context = {'eventlist': eventlist}
-    return render(request, 'test.html', context)
-
 
 @login_required
 def event_json(request, eventId):

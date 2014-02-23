@@ -5,19 +5,18 @@
 
 {% block page_content %}
 <center>
-<h1>Collaborate with peers, organizers and pros by maps!</h1>
-<p>
+
 {% if profileslist %}
 	{% for profile in profileslist %}
+<h1>Send message to {{profile.full_name}}</h1>
+<p>
 	<form action="/send/mail" method="post">{% csrf_token %}
-	<input type="hidden" value="{{profile.email}}" name="to">
-	subject:
-	<input type="text" name="subject">
-	body:
-	<input type="text" name="body">
-	<input type="submit" value="{{profile.full_name}}" class="btn btn-lg btn-primary"></input><br><br>
+	<input type="hidden"  value="{{profile.email}}" name="to">
+	<input type="text" name="subject" value="Subject"><br><br>
+	<textarea rows="2" cols="30" name="body">Hello.</textarea>
+	<br><br>
+	<input type="submit" value="Submit" class="btn btn-lg btn-primary"></input><br><br>
 	</form>
-
 	{% endfor %}
 {% endif %}
 </p>
