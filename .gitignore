@@ -1,5 +1,6 @@
 # Settings JSON
 settings.json
+smapchat/smapchat/fixtures/initial_data.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
