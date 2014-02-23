@@ -1,12 +1,12 @@
 <div class="popover">
-  <div class="arrow">&times;</div>
+  <div class="arrow"></div>
   <h3 class="popover-title">
-    <div>
-      <img src="http://graph.facebook.com/{{ user.username }}/picture?width=64&height=64">
+    <div style="margin-left:auto;margin-right:auto;text-align:center;">
+      <img src="http://graph.facebook.com/{{ profile.user.username }}/picture?width=64&height=64" style="border-radius:3px;">
     </div>
-    <div>{{ user.get_profile.full_name }}</div>
+    <div style="text-align:center;"><h4>{{ profile.full_name }}</h4></div>
   </h3>
   <div class="popover-content">
-    <button type="button" class="btn btn-lg btn-primary">Contact me</button>
+    <button type="button" class="btn btn-lg btn-primary" data-animation="am-fade-and-scale" data-placement="center" bs-modal="modal">Contact me</button>
   </div>
 </div>      

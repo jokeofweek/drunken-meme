@@ -1,8 +1,7 @@
-{$ map.name $}
+<div style="text-align:center;"><i>{$ map.name $}</i></div>
 <div style="position:relative">
     <img ng-click="clickMapPosition($event)" src="{$ map.source $}" width=100% height=80%/>
-    {$ EVENT_ID $}
     <div ng-repeat="pin in savedPins.$omit()" style="position:absolute;top:{$ Math.round(pin.y * imageHeight) $}px;left:{$ Math.round(pin.x * imageWidth) $}px;">
-        <a href="" data-placement="top-right" data-template="/user/popover.8.html" data-trigger="click" data-animation="am-flip-x" bs-popover="popover"><img src="/static/img/pin.png"/></a>
+        <img src="/static/img/pin.png" style="cursor:pointer;" data-placement="top-right" data-template="/user/{$ USER_ID $}" data-trigger="click" bs-popover="popover" />
     </div>
 </div>

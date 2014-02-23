@@ -15,6 +15,7 @@ from jsonview.decorators import json_view
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
+from django.template import RequestContext, loader
 from settings import API_KEYS
 
 from smapchat.models import Event, UserProfile, User
@@ -25,9 +26,15 @@ class HomePageView(TemplateView):
 class EventPageView(TemplateView):
     template_name = 'event.html'
 
-class UserPopoverView(TemplateView):
-    template_name = 'popover.html'
-
+@login_required
+def popover(request, userId):
+    profile = UserProfile.objects.get(user_id=userId)
+    template = loader.get_template('popover.html')
+    context = RequestContext(request, {
+        'profile': profile
+    })
+    return HttpResponse(template.render(context))
+    
 class CustomRedirect(OAuthRedirect):
     "Redirect to custom callback."
 
