@@ -20,7 +20,7 @@
 <h4><u>Preferred contact method:</u></h4>
 <table>
 <tr><td>Email: </td><td><input type="radio" name="pref" value="email" {% if pref %}checked{% endif %}
->  {{info.email}}<br>
+>   <input type="text" name="emailInput" value="{{info.email}}"><br>
 </td></tr>
 <tr><td>Phone: </td><td><input type="radio" name="pref" value="phone" {% if not pref %}checked{% endif %}> <input type="text" name="phoneinput" value="{{phone}}">
 </td></tr>

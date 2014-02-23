@@ -95,6 +95,7 @@ def profile(request):
     try:
             profile = request.user.get_profile()
             pp = pprint.PrettyPrinter(indent=4)
+            profile.email = request.POST['emailInput']
             profile.phone = request.POST['phoneinput']
             pp.pprint(request.POST['pref'])
             profile.pref = (request.POST['pref']=="email")
