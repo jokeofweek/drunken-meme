@@ -60,6 +60,8 @@ AUTHENTICATION_BACKENDS = (
     'allaccess.backends.AuthorizedServiceBackend',
 )
 
+AUTH_PROFILE_MODULE = 'smapchat.UserProfile'
+
 ROOT_URLCONF = 'smapchat.urls'
 
 WSGI_APPLICATION = 'smapchat.wsgi.application'
@@ -79,13 +81,9 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 

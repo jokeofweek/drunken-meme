@@ -7,7 +7,7 @@ from django.conf import settings
 
 admin.autodiscover()
 
-from .views import HomePageView, EventPageView
+from .views import HomePageView, EventPageView, ProviderLoginView
 
 urlpatterns = patterns('',
     # Examples:
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^logout$', 'django.contrib.auth.views.logout_then_login', name='logout'),
     url(r'^accounts/login/$', RedirectView.as_view(url='/accounts/login/facebook', permanent=False), name='index'),
     url(r'^accounts/profile/$', 'smapchat.views.profile', name='profile'),
-    url(r'^accounts/', include('allaccess.urls')),
+    url(r'^accounts/login/(?P<provider>(\w|-)+)/$', ProviderLoginView.as_view(), name='login-callback'),
+
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -5,10 +5,10 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
   $scope.messages = $goKey('messages');
   $scope.messages.$sync();
 
-  $rootScope.currentMap = null;
+  $rootScope.mapIndex = null;
 
   $rootScope.isSelectedMap = function(index){
-    return index == $rootScope.currentMap;
+    return index == $rootScope.mapIndex;
   }
 
   var dataSynced = Q.defer();
@@ -22,10 +22,10 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
     $http.get('/event/1.json'),
     dataSynced
   ]).done(function(results) {
-    $scope.eventInformation = results[0].data;
+    $rootScope.eventInformation = results[0].data;
 
     // If there are no maps, load the nomap partial.
-    if ($scope.eventInformation.maps.length === 0) {
+    if ($rootScope.eventInformation.maps.length === 0) {
       $location.path('/none');
     } else {
       $location.path('/map/0');
@@ -39,7 +39,8 @@ smapchatControllers.controller('SmapchatNoMapsCtrl', function($scope, $goKey, $h
 });
 
 smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope) {
-  $rootScope.currentMap = $routeParams.mapIndex;
+  $rootScope.mapIndex = $routeParams.mapIndex;
+  $rootScope.map = $rootScope.eventInformation.maps[parseInt($rootScope.mapIndex)]
 
   $scope.sendMessage = function() {
     var message = {

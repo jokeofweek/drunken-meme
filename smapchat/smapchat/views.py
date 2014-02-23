@@ -6,6 +6,8 @@ import pprint
 from twilio.rest import TwilioRestClient
 from django.views.generic import TemplateView
 from django.http import HttpResponse
+from allaccess.views import OAuthCallback
+
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
@@ -13,8 +15,11 @@ class HomePageView(TemplateView):
 class EventPageView(TemplateView):
     template_name = 'event.html'
 
+class ProviderLoginView(OAuthCallback):
+    provider = 'facebook'
+
 def profile(request):
-    pprint(request.user)
+    pprint(request.user.get_profile())
     return HttpResponse("ABC")
 
 
