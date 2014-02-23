@@ -4,15 +4,14 @@
 {% load staticfiles %}
 
 {% block bootstrap3_content %}
-    <div class="container">
-        <a href="/"><img src="{% static "smapchatLogo.png" %}" class="img-responsive center-block" /></a></
-        {% include 'nav.html' %}
+{% include 'nav.html' %}
 
-        {% bootstrap_messages %}
-
-        {% block content %}(no content){% endblock %}
-    </div>
-
+<div class="container-fluid">{% include 'nav.html' %}
+  <div class="row">
+    {% bootstrap_messages %}
+    {% block content %}(no content){% endblock %}
+  </div>
+</div>
 
 {% block scripts %}{% endblock%}
 

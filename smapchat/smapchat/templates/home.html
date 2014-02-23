@@ -1,15 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'page.html' %}
 
 {% block title %}smapchat{% endblock %}
 {% load staticfiles %}
 
-{% block content %}
-    <div class="jumbotron">
-
-        <h1>For all your smapping needs</h1>
-        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
-      </div>
+{% block page_content %}
+<h1>for all your smapping needs</h1>
+<p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+<p>
+  <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+</p>
 {% endblock %}
