@@ -3,6 +3,6 @@
     <img ng-click="clickMapPosition($event)" src="{$ map.source $}" width=100% height=80%/>
     {$ EVENT_ID $}
     <div ng-repeat="pin in savedPins.$omit()" style="position:absolute;top:{$ Math.round(pin.y * imageHeight) $}px;left:{$ Math.round(pin.x * imageWidth) $}px;">
-        <a href="" tooltip-html-unsafe="Hello" tooltip-trigger="click"><img src="/static/img/pin.png"/></a>
+        <a href="" data-placement="top-right" data-template="/user/popover.8.html" data-trigger="click" data-animation="am-flip-x" bs-popover="popover"><img src="/static/img/pin.png"/></a>
     </div>
 </div>

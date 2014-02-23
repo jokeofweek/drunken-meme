@@ -25,6 +25,9 @@ class HomePageView(TemplateView):
 class EventPageView(TemplateView):
     template_name = 'event.html'
 
+class UserPopoverView(TemplateView):
+    template_name = 'popover.html'
+
 class CustomRedirect(OAuthRedirect):
     "Redirect to custom callback."
 
