@@ -4,3 +4,9 @@ django-bootstrap3==2.6.0
 smtpapi==0.1.1
 sendgrid==0.2.8
 twilio==3.6.5
+oauth==1.0.1
+oauthlib==0.6.1
+requests==2.2.1
+requests-oauthlib==0.4.0
+django-all-access==0.6.0
+
