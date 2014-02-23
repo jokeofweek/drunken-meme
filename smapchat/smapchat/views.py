@@ -78,6 +78,18 @@ def profile(request):
     return HttpResponse(pprint.pformat(context))
 
 @login_required
+def join(request):
+    if request.user.is_authenticated():
+        try:
+            return HttpResponse("good")
+        except IndexError:
+            return HttpResponse("index error")
+        except Exception:
+            return HttpResponse("error")
+    else:
+        return HttpResponse("stupid")
+
+@login_required
 def event_json(request, eventId):
     try :
         obj = Event.objects.get(pk=eventId)
