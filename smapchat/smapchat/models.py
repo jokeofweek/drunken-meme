@@ -11,8 +11,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)  
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
-    
-
+    phone = models.CharField(max_length=15)
+    pref = models.BooleanField()
     def get_full_name(self):
         # The user is identified by their email address
         return self.full_name

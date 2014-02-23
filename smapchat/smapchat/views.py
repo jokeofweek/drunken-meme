@@ -77,6 +77,7 @@ def profile(request):
         else:
             client = access.api_client
             context['info'] = client.get_profile_info(raw_token=access.access_token)
+            context['phone'] = request.user.get_profile().phone
     return render(request, "profile.html", context)
 
 @login_required

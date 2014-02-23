@@ -1,0 +1,34 @@
+{% extends 'page.html' %}
+
+{% block title %}smapchat{% endblock %}
+{% load staticfiles %}
+
+{% block page_content %}
+<center>
+{% if info %}
+<h1><u>{{info.name}}</u></h1>
+<br><br>
+<table style="width:300px">
+	<tr><td>Email: </td><td><p>{{info.email}}</p></td></tr>
+	<tr><td>Username: </td><td><p>{{info.username}}</p></td></tr>
+	<tr><td>Gender: </td><td><p>{{info.gender}}</p></td></tr>
+	<tr><td>Phone #: </td><td><p>{{phone}}</p></td></tr>
+	</table>
+<form>
+<br><br>
+<h4><u>Preferred contact method:</u></h4>
+<table>
+<tr><td>Email: </td><td><input type="radio" name="pref" value="email" {% if info %}checked{% endif %}
+>  {{info.email}}<br>
+</td></tr>
+<tr><td>Phone: </td><td><input type="radio" name="pref" value="phone" {% if not info %}checked{% endif %}> <input type="text" name="phoneinput" value="{{phone}}">
+</td></tr>
+</table>
+<br>
+<input type="submit" value="Submit">
+</form>
+{% endif %}
+
+</p>
+</center>
+{% endblock %}
