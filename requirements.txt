@@ -10,3 +10,4 @@ requests==2.2.1
 requests-oauthlib==0.4.0
 django-all-access==0.6.0
 pycrypto>=2.4
+South==0.8.4
