@@ -25,6 +25,10 @@ class CustomRedirect(OAuthRedirect):
         "Return the callback url for this provider."
         return reverse('callback', kwargs={'provider': provider.name})
 
+    def get_additional_parameters(self, provider):
+        # Request permission to see user's email
+        return {'scope': 'email'}
+
 class CustomCallback(OAuthCallback):
     "Create custom user on callback."
 
