@@ -79,6 +79,11 @@ DATABASES = {
     'default': env
 }
 
+with open(BASE_DIR + "/../api_keys.json") as filename:
+	API_KEYS = json.load(filename)
+#API_KEYS = {
+#    'default': env
+#}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
