@@ -17,6 +17,11 @@ chatApp.config(['$routeProvider', function($routeProvider) {
     }).
     when('/none',  {
       templateUrl: '/static/partials/nomaps.html',
-      controller: 'SmapchatCtrl'
+      controller: 'SmapchatNoMapsCtrl'
+    }).
+    when('/map/:mapIndex',  {
+      templateUrl: '/static/partials/map.html',
+      controller: 'SmapchatMapCtrl'
     });
 }]);
+

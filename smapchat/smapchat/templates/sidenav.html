@@ -1,16 +1,4 @@
 <ul class="nav nav-sidebar">
-  <li ng-repeat="map in eventInformation.maps"><a href="#">{$ map.name $}</a></li>
+  <li ng-repeat="map in eventInformation.maps" ng-class="{'selected':isSelectedMap({$ $index $})}"><a href="#/map/{$ $index $}">{$ map.name $}</a></li>
 </ul>
 <hr/>
-<ul class="nav nav-sidebar">
-  <li><a href="">All</a></li>
-  <li><a href="">Students</a></li>
-  <li><a href="">Organizers</a></li>
-  <li><a href="">Another nav item</a></li>
-  <li><a href="">More navigation</a></li>
-</ul>
-<ul class="nav nav-sidebar">
-  <li><a href="">Nav item again</a></li>
-  <li><a href="">One more nav</a></li>
-  <li><a href="">Another nav item</a></li>
-</ul>
