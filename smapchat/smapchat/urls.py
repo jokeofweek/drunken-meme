@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'smapchat.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^accounts/', include('allaccess.urls')),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^event/1$', EventPageView.as_view(), name='event'),
