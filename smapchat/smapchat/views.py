@@ -1,6 +1,8 @@
 import json
 import sendgrid
 import os
+import pprint
+
 from twilio.rest import TwilioRestClient
 from django.views.generic import TemplateView
 from django.http import HttpResponse
@@ -10,6 +12,10 @@ class HomePageView(TemplateView):
 
 class EventPageView(TemplateView):
     template_name = 'event.html'
+
+def profile(request):
+    pprint(request.user)
+    return HttpResponse("ABC")
 
 
 def event_json(request):
