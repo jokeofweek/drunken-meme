@@ -168,6 +168,40 @@ def user_json(request, userId):
     except ObjectDoesNotExist:
         return HttpResponseNotFound(json.dumps({'type': 'error'}), content_type="application/json")
 
+def send(request):
+    profile = UserProfile.objects.get(user_id=request.POST['to'])
+    if profile.pref:
+        user = API_KEYS['SG_USER']
+        pw = API_KEYS['SG_PASS']
+        reciever = profile.email
+        subject = request.POST['subject']
+        body = request.POST['body']
+        sg = sendgrid.SendGridClient(user, pw)
+        message = sendgrid.Mail()
+        message.add_to(reciever)
+        message.set_subject(subject)
+        message.set_html(body)
+        message.set_text(body)
+        message.set_from(request.user.get_profile().email)
+        print (sg.send(message))
+    else:
+        account_sid = API_KEYS["TWILIO_SID"]
+        auth_token = API_KEYS["TWILIO_AUTH"]
+        txtfrom = API_KEYS["TWILIO_NUM"]
+        body = request.POST['to'] + ": " + request.POST['body']
+        txtto = profile.phone
+        client = TwilioRestClient(account_sid, auth_token)
+
+        message = client.sms.messages.create(body=body,
+            to=txtto,    # Replace with your phone number
+                from_=txtfrom) # Replace with your Twilio number
+        print message.sid
+    return HttpResponse("")
+
+
+
+
+
 def send_mail(request):
     user = API_KEYS['SG_USER']
     pw = API_KEYS['SG_PASS']
