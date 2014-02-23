@@ -29,6 +29,15 @@ def create_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
+class Event(models.Model):
+    name = models.CharField(max_length=255)
+    desc = models.CharField(max_length=255)
+    
+class Map(models.Model):
+    name = models.CharField(max_length=255)
+    source = models.CharField(max_length=255)
+    event = models.ForeignKey(Event)
+
 # Register a handler for the post_save signal
 # Otherwise the user profile does not get created
 post_save.connect(create_user_profile, sender=User)
