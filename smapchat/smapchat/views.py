@@ -15,6 +15,7 @@ from jsonview.decorators import json_view
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
+from settings import API_KEYS
 
 from smapchat.models import Event, UserProfile
 
@@ -128,28 +129,29 @@ def event_json(request, eventId):
         return HttpResponseNotFound(json.dumps({'type': 'error'}), content_type="application/json")
 
 def send_mail(request):
-    user = request.GET['user']
-    pw = request.GET['pass']
+    user = API_KEYS['SG_USER']
+    pw = API_KEYS['SG_PASS']
     reciever = request.GET['to']
     sender = request.GET['from']
+    subject = request.GET['subject']
+    body = request.GET['body']
 
     sg = sendgrid.SendGridClient(user, pw)
     message = sendgrid.Mail()
     message.add_to(reciever)
-    message.set_subject('Example')
-    message.set_html('Body')
-    message.set_text('Body')
+    message.set_subject(subject)
+    message.set_html(body)
+    message.set_text(body)
     message.set_from(sender)
     print (sg.send(message))
     return HttpResponse(user + " " + pw + " " + reciever + " " + sender)
 
 def send_text(request):
-    # Your Account Sid and Auth Token from twilio.com/user/account
-    account_sid = request.GET['user']
-    auth_token = request.GET['auth']
+    account_sid = API_KEYS["TWILIO_SID"]
+    auth_token = API_KEYS["TWILIO_AUTH"]
+    txtfrom = API_KEYS["TWILIO_NUM"]
     body = request.GET['body']
     txtto = request.GET['to']
-    txtfrom = request.GET['from']
     client = TwilioRestClient(account_sid, auth_token)
 
     message = client.sms.messages.create(body=body,
