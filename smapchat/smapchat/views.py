@@ -8,9 +8,14 @@ import base64
 from django.core.urlresolvers import reverse
 from twilio.rest import TwilioRestClient
 from django.views.generic import TemplateView
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from allaccess.compat import get_user_model, smart_bytes, force_text
 from allaccess.views import OAuthCallback, OAuthRedirect
+from jsonview.decorators import json_view
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+
+from smapchat.models import Event
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
@@ -59,6 +64,7 @@ class CustomCallback(OAuthCallback):
         return u
 
 
+@login_required
 def profile(request):
     context = {}
     if request.user.is_authenticated():
@@ -71,18 +77,23 @@ def profile(request):
             context['info'] = client.get_profile_info(raw_token=access.access_token)
     return HttpResponse(pprint.pformat(context))
 
-def event_json(request):
-    obj = {
-        'id': 1,
-        'name': "McHacks",
-        'desc': 'A Hackathon at McGill',
-        'maps': [
-            {'name': 'SSMU Floor 1', 'source': '/static/concert.jpg'},
-            {'name': 'SSMU Floor 2', 'source': '/static/concert.jpg'},
-            {'name': 'Leacock', 'source': '/static/concert.jpg'}
-        ]
-    }
-    return HttpResponse(json.dumps(obj), content_type="application/json")
+@login_required
+def event_json(request, eventId):
+    try :
+        obj = Event.objects.get(pk=eventId)
+        json_obj = {
+            'type': 'event',
+            'id': obj.id,
+            'name': obj.name,
+            'desc': obj.desc,
+            'maps': map(lambda x: {
+                'name': x.name,
+                'source': x.source
+            }, obj.map_set.order_by('pk')[:])
+        }
+        return HttpResponse(json.dumps(json_obj), content_type="application/json")
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(json.dumps({'type': 'error'}), content_type="application/json")
 
 def send_mail(request):
     user = request.GET['user']
