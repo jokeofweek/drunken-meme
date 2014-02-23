@@ -40,3 +40,4 @@ def send_mail(request):
 
 def send_text(request):
     return HttpResponse("This is a text!")
+
