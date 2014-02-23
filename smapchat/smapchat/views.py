@@ -71,6 +71,19 @@ class CustomCallback(OAuthCallback):
 
 @login_required
 def profile(request):
+
+    try:
+            profile = request.user.get_profile()
+            pp = pprint.PrettyPrinter(indent=4)
+            profile.phone = request.POST['phoneinput']
+            pp.pprint(request.POST['pref'])
+            profile.pref = (request.POST['pref']=="email")
+            pp.pprint(profile.pref)
+            profile.save()
+    except Exception:
+        pass 
+             
+
     context = {}
     if request.user.is_authenticated():
         try:
@@ -81,6 +94,7 @@ def profile(request):
             client = access.api_client
             context['info'] = client.get_profile_info(raw_token=access.access_token)
             context['phone'] = request.user.get_profile().phone
+            context['pref'] = request.user.get_profile().pref
     return render(request, "profile.html", context)
 
 @login_required
