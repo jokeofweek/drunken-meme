@@ -10,7 +10,7 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
   $scope.loading = true;
   $rootScope.messages = $goKey('messages');
   $rootScope.messages.$sync();
-  $rootScope.savedPins = $goKey('savedPins3l  ');
+  $rootScope.savedPins = $goKey('savedPins4');
   $rootScope.savedPins.$sync();
 
   $rootScope.myPin = null;
