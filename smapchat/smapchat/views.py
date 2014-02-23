@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 
-from smapchat.models import Event
+from smapchat.models import Event, UserProfile
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
@@ -77,6 +77,17 @@ def profile(request):
             client = access.api_client
             context['info'] = client.get_profile_info(raw_token=access.access_token)
     return HttpResponse(pprint.pformat(context))
+
+@login_required
+def usersinfo(request):
+    profileslist = UserProfile.objects.all()[:]
+    context = {'profileslist': profileslist}
+    try:
+        return render(request, "usersinfo.html", context)
+    except Exception:
+        return HttpResponse("whoops")
+
+
 
 @login_required
 def join(request):
