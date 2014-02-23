@@ -32,7 +32,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 class Event(models.Model):
     name = models.CharField(max_length=255)
     desc = models.CharField(max_length=255)
-    
+
 class Map(models.Model):
     name = models.CharField(max_length=255)
     source = models.CharField(max_length=255)

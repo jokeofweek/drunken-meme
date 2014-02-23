@@ -1,0 +1,28 @@
+{% extends 'page.html' %}
+
+{% block title %}smapchat{% endblock %}
+{% load staticfiles %}
+
+{% block page_content %}
+<center>
+<h1>Collaborate with peers, organizers and pros by maps!</h1>
+<p>
+{% if profileslist %}
+	{% for profile in profileslist %}
+	<form action="/send/mail" method="post">{% csrf_token %}
+	to:
+	<input type="text" name="to">
+	from:
+	<input type="text" name="from">
+	subject:
+	<input type="text" name="subject">
+	body:
+	<input type="text" name="body">
+	<input type="submit" value="{{profile.full_name}}" class="btn btn-lg btn-primary"></input><br><br>
+	</form>
+
+	{% endfor %}
+{% endif %}
+</p>
+</center>
+{% endblock %}
