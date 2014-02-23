@@ -7,6 +7,9 @@ from django.http import HttpResponse
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
+class EventPageView(TemplateView):
+    template_name = 'event.html'
+
 
 def event_json(request):
     obj = {

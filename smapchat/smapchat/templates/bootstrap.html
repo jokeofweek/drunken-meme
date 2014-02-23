@@ -1,3 +1,13 @@
-{% extends 'bootstrap3/bootstrap3.html' %}
-
-{% block bootstrap3_title %}{% block title %}{% endblock %}{% endblock %}
+<!DOCTYPE html>
+{% load bootstrap3 %}
+<html {% block html_tag_extra %}{% endblock %}>
+  <head>
+    <title>{% block bootstrap3_title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% bootstrap_css %}
+  </head>
+  <body>
+    {% block bootstrap3_content %}{% endblock %}
+    {% bootstrap_javascript jquery=True %}
+  </body>
+</html>
