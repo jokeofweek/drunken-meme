@@ -53,6 +53,11 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.min.js"></script>
 
 <!-- Angular App -->
+<script src>
+var USER_ID = '{{ user.id }}';
+</script>
+<script src="{% static "js/ui-bootstrap-custom-0.10.0.min.js" %}"></script>
+<script src="{% static "js/ui-bootstrap-custom-tpls-0.10.0.min.js" %}"></script>
 <script src="{% static "js/app.js" %}"></script>
 <script src="{% static "js/controllers.js" %}"></script>
 {% endblock %}

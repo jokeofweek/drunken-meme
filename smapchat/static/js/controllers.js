@@ -1,23 +1,29 @@
 var smapchatControllers = angular.module('smapchatControllers', []);
 
 smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $location, $rootScope) {
-  $scope.loading = true;
-  $scope.messages = $goKey('messages');
-  $scope.messages.$sync();
 
+  var id = window.location.href.replace('#' + $location.path(), '').split('/').pop();
+  $rootScope.EVENT_ID = id;
+  $rootScope.Math = window.Math;
+
+  $scope.loading = true;
+  $rootScope.messages = $goKey('messages');
+  $rootScope.messages.$sync();
+  $rootScope.savedPins = $goKey('savedPins');
+  $rootScope.savedPins.$sync();
+
+  $rootScope.myPin = null;
   $rootScope.mapIndex = null;
 
   $rootScope.isSelectedMap = function(index){
     return index == $rootScope.mapIndex;
-  }
+  };
 
   var dataSynced = Q.defer();
 
   $scope.messages.$on('ready', function() {
     dataSynced.resolve();
   });
-
-  var id = window.location.href.replace('#' + $location.path(), '').split('/').pop();
 
 
   Q.all([
@@ -43,8 +49,32 @@ smapchatControllers.controller('SmapchatNoMapsCtrl', function($scope, $goKey, $h
 });
 
 smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope) {
+  $rootScope.Math = window.Math;
   $rootScope.mapIndex = $routeParams.mapIndex;
   $rootScope.map = $rootScope.eventInformation.maps[parseInt($rootScope.mapIndex)]
+  $scope.pins = [];
+  $scope.imageWidth = 1;
+  $scope.imageHeight = 1;
+  $scope.clickMapPosition = function(arg){
+    var isFirst = false;
+    if (!$rootScope.myPin) {
+      $rootScope.myPin = {};
+      isFirst = true;
+    }
+
+    $scope.imageWidth = arg.target.width;
+    $scope.imageHeight = arg.target.height
+
+    var x = arg.offsetX / $scope.imageWidth;
+    var y =  arg.offsetY / $scope.imageHeight;
+
+    $rootScope.myPin.x = arg.offsetX / $scope.imageWidth;
+    $rootScope.myPin.y = arg.offsetY / $scope.imageHeight;
+    if (isFirst) {
+      $scope.pins.push($rootScope.myPin);
+    }
+    $rootScope.savedPins.$add({x:x, y:y});
+  };
 });
 
 smapchatControllers.controller('SmapchatChatCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope) {
