@@ -37,3 +37,6 @@ def send_mail(request):
     message.set_from(sender)
     print (sg.send(message))
     return HttpResponse(user + " " + pw + " " + reciever + " " + sender)
+
+def send_text(request):
+    return HttpResponse("This is a text!")
