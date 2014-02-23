@@ -128,23 +128,35 @@ def event_json(request, eventId):
     except ObjectDoesNotExist:
         return HttpResponseNotFound(json.dumps({'type': 'error'}), content_type="application/json")
 
+@login_required
+def user_json(request, userId):
+    try :
+        userobject = User.objects.get(pk=userId)
+        json_obj = {
+            'type': 'user',
+            'full_name': userobject.profile.full_name,
+            'user': userobject.user,
+            'email': userobject.profile.email
+        }
+        return HttpResponse(json.dumps(json_obj), content_type="application/json")
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(json.dumps({'type': 'error'}), content_type="application/json")
+
 def send_mail(request):
     user = API_KEYS['SG_USER']
     pw = API_KEYS['SG_PASS']
     reciever = request.POST['to']
-    sender = request.POST['from']
     subject = request.POST['subject']
     body = request.POST['body']
-
     sg = sendgrid.SendGridClient(user, pw)
     message = sendgrid.Mail()
     message.add_to(reciever)
     message.set_subject(subject)
     message.set_html(body)
     message.set_text(body)
-    message.set_from(sender)
+    message.set_from(request.user.get_profile().email)
     print (sg.send(message))
-    return HttpResponse(user + " " + pw + " " + reciever + " " + sender)
+    return HttpResponse(reciever)
 
 def send_text(request):
     account_sid = API_KEYS["TWILIO_SID"]

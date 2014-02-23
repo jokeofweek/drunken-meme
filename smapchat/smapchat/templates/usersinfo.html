@@ -10,10 +10,7 @@
 {% if profileslist %}
 	{% for profile in profileslist %}
 	<form action="/send/mail" method="post">{% csrf_token %}
-	to:
-	<input type="text" name="to">
-	from:
-	<input type="text" name="from">
+	<input type="hidden" value="{{profile.email}}" name="to">
 	subject:
 	<input type="text" name="subject">
 	body:
