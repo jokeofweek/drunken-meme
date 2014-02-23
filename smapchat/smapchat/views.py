@@ -120,10 +120,10 @@ def event_json(request, eventId):
 def send_mail(request):
     user = API_KEYS['SG_USER']
     pw = API_KEYS['SG_PASS']
-    reciever = request.GET['to']
-    sender = request.GET['from']
-    subject = request.GET['subject']
-    body = request.GET['body']
+    reciever = request.POST['to']
+    sender = request.POST['from']
+    subject = request.POST['subject']
+    body = request.POST['body']
 
     sg = sendgrid.SendGridClient(user, pw)
     message = sendgrid.Mail()
@@ -139,8 +139,8 @@ def send_text(request):
     account_sid = API_KEYS["TWILIO_SID"]
     auth_token = API_KEYS["TWILIO_AUTH"]
     txtfrom = API_KEYS["TWILIO_NUM"]
-    body = request.GET['body']
-    txtto = request.GET['to']
+    body = request.POST['body']
+    txtto = request.POST['to']
     client = TwilioRestClient(account_sid, auth_token)
 
     message = client.sms.messages.create(body=body,
