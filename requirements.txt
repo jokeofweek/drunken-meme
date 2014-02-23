@@ -12,3 +12,4 @@ django-all-access==0.6.0
 pycrypto>=2.4
 South==0.8.4
 django-extensions>=1.3.3
+django-jsonview==0.3.0
