@@ -11,10 +11,12 @@
       <a class="navbar-brand" href="#"><img src="{% static "img/smapchatLogo_small.png" %}"></a>
     </div>
     <div class="navbar-collapse collapse">
+      {% if user.is_authenticated %}
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Settings</a></li>
         <li><a href="#">Help</a></li>
       </ul>
+      {% endif %}
       <form class="navbar-form navbar-right">
       </form>
     </div>

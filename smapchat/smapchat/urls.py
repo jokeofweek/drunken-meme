@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
@@ -16,11 +17,11 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allaccess.urls')),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^event/1$', EventPageView.as_view(), name='event'),
+    url(r'^event/1$', login_required(EventPageView.as_view()), name='event'),
     url(r'^event/1.json$', 'smapchat.views.event_json', name='event_json'),
     url(r'^send/mail$', 'smapchat.views.send_mail', name='send_mail'),
     url(r'^send/text$', 'smapchat.views.send_text', name='send_text'),
-    url(r'^logout$', 'django.contrib.auth.views.logout_then_login', name='logout'),
+    url(r'^logout$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^profile/$', 'smapchat.views.profile', name='profile'),
     url(r'^login$', RedirectView.as_view(url='/login/facebook'), name='login-root'),
     url(r'^login/(?P<provider>(\w|-)+)/$', CustomRedirect.as_view(), name='login'),
