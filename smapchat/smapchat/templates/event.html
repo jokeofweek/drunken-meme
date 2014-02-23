@@ -8,7 +8,7 @@
 <div ng-controller="SmapchatCtrl">
   <div ng-show="loading" class="loading"><img src=""/>LOADING...</div>
   <div ng-show="!loading" class="jumbotron">
-    <h1>Getting Started with GoAngular Chat</h1>
+    <h1>{$ eventInformation.name $}<h1>
 
     <!-- Messages displayed -->
     <div id="messages">
@@ -54,10 +54,21 @@
     $scope.messages = $goKey('messages');
     $scope.messages.$sync();
 
+    var dataSynced = Q.defer();
+
     $scope.messages.$on('ready', function() {
-      $scope.loading = false;
+      dataSynced.resolve();
     });
-    console.log($http);
+
+
+    Q.all([
+      $http.get('/event/1.json'),
+      dataSynced
+    ]).done(function(results) {
+      $scope.eventInformation = results[0].data;
+
+      $scope.loading = false;
+    })
 
     $scope.sendMessage = function() {
       var message = {
