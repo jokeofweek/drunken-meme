@@ -1,0 +1,23 @@
+{% extends 'page.html' %}
+
+{% block title %}smapchat{% endblock %}
+{% load staticfiles %}
+
+{% block page_content %}
+<center>
+<h1>Choose your event</h1>
+<p>
+
+{% if Event %}
+    {% for event in Event %}
+
+  <li class="mix category_1" data-cat="1" style="background: url({{poll.url}}); background-size: cover;">
+
+        <a class="btn btn-lg btn-primary" href="url({{event.pk}})" role="button">Login with Facebook</a>
+
+        {% endfor %}
+{% endif %}
+
+</p>
+</center>
+{% endblock %}
