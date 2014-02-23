@@ -78,6 +78,10 @@ def profile(request):
     return HttpResponse(pprint.pformat(context))
 
 @login_required
+def join(request):
+    return HttpResponse("hello")
+
+@login_required
 def event_json(request, eventId):
     try :
         obj = Event.objects.get(pk=eventId)
