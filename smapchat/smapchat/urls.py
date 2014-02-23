@@ -8,7 +8,7 @@ from django.conf import settings
 
 admin.autodiscover()
 
-from .views import HomePageView, EventPageView, UserPopoverView, CustomRedirect, CustomCallback
+from .views import HomePageView, EventPageView, CustomRedirect, CustomCallback
 
 urlpatterns = patterns('',
     # Examples:
@@ -21,7 +21,8 @@ urlpatterns = patterns('',
     url(r'^event/(?P<eventId>[0-9]+)$', login_required(EventPageView.as_view()), name='event'),
     url(r'^event/(?P<eventId>[0-9]+).json$', 'smapchat.views.event_json', name='event_json'),
     url(r'^user/(?P<userId>[0-9]+).json$', 'smapchat.views.user_json', name='user_json'),
-    url(r'^user/popover.(?P<userId>[0-9]+).html$', login_required(UserPopoverView.as_view()), name='popover'),
+    url(r'^user/(?P<userId>[0-9]+)$', 'smapchat.views.popover', name='popover'),
+    url(r'^contact-dialog/(?P<userId>[0-9]+)$', 'smapchat.views.contact_dialog', name='contact_dialog'),
     url(r'^send/mail$', 'smapchat.views.send_mail', name='send_mail'),
     url(r'^send/text$', 'smapchat.views.send_text', name='send_text'),
     url(r'^logout$', 'django.contrib.auth.views.logout',  {'next_page': '/'}),

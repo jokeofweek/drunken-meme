@@ -1,15 +1,16 @@
 var smapchatControllers = angular.module('smapchatControllers', []);
 
-smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $location, $rootScope) {
+smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $location, $rootScope, $window) {
 
   var id = window.location.href.replace('#' + $location.path(), '').split('/').pop();
   $rootScope.EVENT_ID = id;
+  $rootScope.USER_ID = $window.USER_ID;
   $rootScope.Math = window.Math;
 
   $scope.loading = true;
   $rootScope.messages = $goKey('messages');
   $rootScope.messages.$sync();
-  $rootScope.savedPins = $goKey('savedPins');
+  $rootScope.savedPins = $goKey('savedPins3');
   $rootScope.savedPins.$sync();
 
   $rootScope.myPin = null;
@@ -48,13 +49,13 @@ smapchatControllers.controller('SmapchatNoMapsCtrl', function($scope, $goKey, $h
 
 });
 
-smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope) {
+smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope, $window) {
   $rootScope.Math = window.Math;
   $rootScope.mapIndex = $routeParams.mapIndex;
   $rootScope.map = $rootScope.eventInformation.maps[parseInt($rootScope.mapIndex)]
-  $scope.pins = [];
   $scope.imageWidth = 1;
   $scope.imageHeight = 1;
+  $rootScope.USER_ID = $window.USER_ID;
   $scope.clickMapPosition = function(arg){
     var isFirst = false;
     if (!$rootScope.myPin) {
@@ -70,10 +71,8 @@ smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http
 
     $rootScope.myPin.x = arg.offsetX / $scope.imageWidth;
     $rootScope.myPin.y = arg.offsetY / $scope.imageHeight;
-    if (isFirst) {
-      $scope.pins.push($rootScope.myPin);
-    }
-    $rootScope.savedPins.$add({x:x, y:y});
+    $rootScope.myPin.userId = $window.USER_ID;
+    $rootScope.savedPins.$add({x:x, y:y, id: $window.USER_ID});
   };
 });
 
