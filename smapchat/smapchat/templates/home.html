@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}smapchat{% endblock %}
+{% load staticfiles %}
 
 {% block content %}
     <div class="jumbotron">
+    <img src="{% static "smapchatLogo.png" %}"/>
+    <!--img src="{% static "my_app/myexample.jpg" %}" alt="My image"/-->
+
         <h1>Navbar example</h1>
         <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
         <p>
