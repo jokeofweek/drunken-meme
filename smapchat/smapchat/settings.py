@@ -39,7 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'allaccess',
-    'south'
+    'south',
+    'django_extensions',
+    'smapchat'
 )
 
 MIDDLEWARE_CLASSES = (
