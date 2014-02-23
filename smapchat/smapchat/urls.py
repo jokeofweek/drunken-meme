@@ -13,6 +13,6 @@ urlpatterns = patterns('',
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^event/1$', TemplateView.as_view(template_name="map.html")),
-    url(r'^event/1.json$', 'smapchat.views.event_json', name='event_json')
+    url(r'^event/1.json$', 'smapchat.views.event_json', name='event_json'),
     url(r'^mail/test$', 'smapchat.views.send_mail', name='send_mail')
 )
