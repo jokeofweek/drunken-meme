@@ -1,16 +1,2 @@
 {$ map.name $}
 <img src="{$ map.source $}" width=100% height=80%/>
-<!-- Messages displayed -->
-<div id="messages">
-<div class="message" ng-repeat="message in messages">
-  <span class="author">{$ message.author $}</span>
-  <span class="content">{$ message.content $}</span>
-</div>
-</div>
-
-<!-- New message form -->
-<form ng-submit="sendMessage()">
-<input ng-model="author">
-<input ng-model="messageContent">
-<input type="submit">
-</form>

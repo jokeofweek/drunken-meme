@@ -45,6 +45,11 @@ smapchatControllers.controller('SmapchatNoMapsCtrl', function($scope, $goKey, $h
 smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope) {
   $rootScope.mapIndex = $routeParams.mapIndex;
   $rootScope.map = $rootScope.eventInformation.maps[parseInt($rootScope.mapIndex)]
+});
+
+smapchatControllers.controller('SmapchatChatCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope) {
+  $rootScope.mapIndex = $routeParams.mapIndex;
+  $rootScope.map = $rootScope.eventInformation.maps[parseInt($rootScope.mapIndex)]
 
   $scope.sendMessage = function() {
     var message = {
