@@ -10,7 +10,7 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
   $scope.loading = true;
   $rootScope.messages = $goKey('messages');
   $rootScope.messages.$sync();
-  $rootScope.savedPins = $goKey('savedPins3');
+  $rootScope.savedPins = $goKey('savedPins4');
   $rootScope.savedPins.$sync();
 
   $rootScope.myPin = null;
@@ -49,13 +49,14 @@ smapchatControllers.controller('SmapchatNoMapsCtrl', function($scope, $goKey, $h
 
 });
 
-smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope, $window) {
+smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope, $aside, $window) {
   $rootScope.Math = window.Math;
   $rootScope.mapIndex = $routeParams.mapIndex;
   $rootScope.map = $rootScope.eventInformation.maps[parseInt($rootScope.mapIndex)]
   $scope.imageWidth = 1;
   $scope.imageHeight = 1;
   $rootScope.USER_ID = $window.USER_ID;
+
   $scope.clickMapPosition = function(arg){
     var isFirst = false;
     if (!$rootScope.myPin) {
@@ -73,6 +74,12 @@ smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http
     $rootScope.myPin.y = arg.offsetY / $scope.imageHeight;
     $rootScope.myPin.userId = $window.USER_ID;
     $rootScope.savedPins.$add({x:x, y:y, id: $window.USER_ID});
+  };
+
+  $scope.showAside = function() {
+    // Pre-fetch an external template populated with a custom scope
+    var myOtherAside = $aside({scope: $scope, template: '/contact-dialog/8'});
+
   };
 });
 
