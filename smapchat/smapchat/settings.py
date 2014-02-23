@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import pprint
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'allaccess',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,6 +71,7 @@ with open(BASE_DIR + "/../settings.json") as filename:
 DATABASES = {
     'default': env
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^event/1$', EventPageView.as_view(), name='event'),
     url(r'^event/1.json$', 'smapchat.views.event_json', name='event_json'),
     url(r'^send/mail$', 'smapchat.views.send_mail', name='send_mail'),
-    url(r'^send/text$', 'smapchat.views.send_text', name='send_text')
+    url(r'^send/text$', 'smapchat.views.send_text', name='send_text'),
+    url(r'^accounts/', include('allaccess.urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
