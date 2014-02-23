@@ -26,5 +26,9 @@ config(['$routeProvider', function($routeProvider) {
       templateUrl: '/static/partials/map.html',
       controller: 'SmapchatMapCtrl'
     });
-}]);
-
+}]).
+config(function($sceProvider) {
+  // Completely disable SCE.  For demonstration purposes only!
+  // Do not use in new projects.
+  $sceProvider.enabled(false);
+});

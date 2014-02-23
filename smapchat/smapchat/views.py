@@ -8,7 +8,8 @@ import base64
 from django.core.urlresolvers import reverse
 from twilio.rest import TwilioRestClient
 from django.views.generic import TemplateView
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound,HttpResponseRedirect
+
 from allaccess.compat import get_user_model, smart_bytes, force_text
 from allaccess.views import OAuthCallback, OAuthRedirect
 from jsonview.decorators import json_view
@@ -25,6 +26,9 @@ class HomePageView(TemplateView):
 
 class EventPageView(TemplateView):
     template_name = 'event.html'
+
+class SuccessPageView(TemplateView):
+    template_name = 'success.html'
 
 @login_required
 def popover(request, userId):
@@ -114,13 +118,13 @@ def profile(request):
     return render(request, "profile.html", context)
 
 @login_required
-def usersinfo(request):
-    profileslist = UserProfile.objects.all()[:]
-    context = {'profileslist': profileslist}
-    try:
-        return render(request, "usersinfo.html", context)
-    except Exception:
-        return HttpResponse("whoops")
+def usersinfo(request,userId):
+    profile = UserProfile.objects.get(user_id=userId)
+    template = loader.get_template('contact_dialog.html')
+    context = RequestContext(request, {
+        'profile': profile
+    })
+    return render(request, "usersinfo.html", context)
 
 @login_required
 def join(request):
@@ -168,6 +172,7 @@ def user_json(request, userId):
     except ObjectDoesNotExist:
         return HttpResponseNotFound(json.dumps({'type': 'error'}), content_type="application/json")
 
+@login_required
 def send(request):
     profile = UserProfile.objects.get(user_id=request.POST['to'])
     if profile.pref:
@@ -183,12 +188,13 @@ def send(request):
         message.set_html(body)
         message.set_text(body)
         message.set_from(request.user.get_profile().email)
+        print reciever
         print (sg.send(message))
     else:
         account_sid = API_KEYS["TWILIO_SID"]
         auth_token = API_KEYS["TWILIO_AUTH"]
         txtfrom = API_KEYS["TWILIO_NUM"]
-        body = request.POST['to'] + ": " + request.POST['body']
+        body = request.POST['subject'] + ": " + request.POST['body']
         txtto = profile.phone
         client = TwilioRestClient(account_sid, auth_token)
 
@@ -196,7 +202,7 @@ def send(request):
             to=txtto,    # Replace with your phone number
                 from_=txtfrom) # Replace with your Twilio number
         print message.sid
-    return HttpResponse("")
+    return HttpResponseRedirect('/success')
 
 
 

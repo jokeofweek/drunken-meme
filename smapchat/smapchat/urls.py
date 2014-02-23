@@ -8,7 +8,7 @@ from django.conf import settings
 
 admin.autodiscover()
 
-from .views import HomePageView, EventPageView, CustomRedirect, CustomCallback
+from .views import HomePageView, EventPageView, CustomRedirect, CustomCallback, SuccessPageView
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,8 +16,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^accounts/', include('allaccess.urls')),
     url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'^success$', SuccessPageView.as_view(), name='success'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^usersinfo/', 'smapchat.views.usersinfo', name='usersinfo'),
+    url(r'^contact/(?P<userId>[0-9]+)$', 'smapchat.views.usersinfo', name='usersinfo'),
     url(r'^event/(?P<eventId>[0-9]+)$', login_required(EventPageView.as_view()), name='event'),
     url(r'^event/(?P<eventId>[0-9]+).json$', 'smapchat.views.event_json', name='event_json'),
     url(r'^user/(?P<userId>[0-9]+).json$', 'smapchat.views.user_json', name='user_json'),

@@ -5,20 +5,16 @@
 
 {% block page_content %}
 <center>
-
-{% if profileslist %}
-	{% for profile in profileslist %}
+<img src="http://graph.facebook.com/{{ profile.user.username }}/picture?width=128&height=128" style="border-radius:3px;">
 <h1>Send message to {{profile.full_name}}</h1>
 <p>
-	<form action="/send/mail" method="post">{% csrf_token %}
-	<input type="hidden"  value="{{profile.email}}" name="to">
+	<form action="/send" method="post">{% csrf_token %}
+	<input type="hidden"  value="{{profile.user_id}}" name="to">
 	<input type="text" name="subject" value="Subject"><br><br>
 	<textarea rows="2" cols="30" name="body">Hello.</textarea>
 	<br><br>
 	<input type="submit" value="Submit" class="btn btn-lg btn-primary"></input><br><br>
 	</form>
-	{% endfor %}
-{% endif %}
 </p>
 </center>
 {% endblock %}

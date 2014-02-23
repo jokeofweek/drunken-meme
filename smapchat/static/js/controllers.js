@@ -10,7 +10,7 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
   $scope.loading = true;
   $rootScope.messages = $goKey('messages');
   $rootScope.messages.$sync();
-  $rootScope.savedPins = $goKey('savedPins4');
+  $rootScope.savedPins = $goKey('savedPins3l  ');
   $rootScope.savedPins.$sync();
 
   $rootScope.myPin = null;
@@ -76,11 +76,6 @@ smapchatControllers.controller('SmapchatMapCtrl', function($scope, $goKey, $http
     $rootScope.savedPins.$add({x:x, y:y, id: $window.USER_ID});
   };
 
-  $scope.showAside = function() {
-    // Pre-fetch an external template populated with a custom scope
-    var myOtherAside = $aside({scope: $scope, template: '/contact-dialog/8'});
-
-  };
 });
 
 smapchatControllers.controller('SmapchatChatCtrl', function($scope, $goKey, $http, $location, $routeParams, $rootScope) {
