@@ -17,11 +17,15 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
     dataSynced.resolve();
   });
 
+  var id = window.location.href.replace('#' + $location.path(), '').split('/').pop();
+
 
   Q.all([
-    $http.get('/event/1.json'),
+    $http.get('/event/' + id + '.json'),
     dataSynced
-  ]).done(function(results) {
+  ]).catch(function(err) {
+    document.location.href = '/'; 
+  }).done(function(results) {
     $rootScope.eventInformation = results[0].data;
 
     // If there are no maps, load the nomap partial.
@@ -31,7 +35,7 @@ smapchatControllers.controller('SmapchatCtrl', function($scope, $goKey, $http, $
       $location.path('/map/0');
     }
     $scope.loading = false;
-  })
+  });
 });
 
 smapchatControllers.controller('SmapchatNoMapsCtrl', function($scope, $goKey, $http, $location) {
