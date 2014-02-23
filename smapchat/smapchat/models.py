@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 
      
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)  
+    user = models.OneToOneField(User, unique=True)  
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
     

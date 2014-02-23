@@ -1,4 +1,4 @@
-var chatApp = angular.module('Smapchat', ['goangular', 'ngRoute', 'smapchatControllers']);
+var chatApp = angular.module('Smapchat', ['goangular', 'ngRoute', 'smapchatControllers', 'ui.bootstrap']);
 
 chatApp.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{$');

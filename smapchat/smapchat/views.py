@@ -17,7 +17,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from settings import API_KEYS
 
-from smapchat.models import Event, UserProfile
+from smapchat.models import Event, UserProfile, User
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
@@ -123,12 +123,12 @@ def event_json(request, eventId):
 @login_required
 def user_json(request, userId):
     try :
-        userobject = User.objects.get(pk=userId)
+        profile = UserProfile.objects.get(user_id=userId)
         json_obj = {
             'type': 'user',
-            'full_name': userobject.profile.full_name,
-            'user': userobject.user,
-            'email': userobject.profile.email
+            'id': userId,
+            'full_name': profile.full_name,
+            'username': profile.user.username
         }
         return HttpResponse(json.dumps(json_obj), content_type="application/json")
     except ObjectDoesNotExist:
