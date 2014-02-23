@@ -7,6 +7,6 @@
     <div style="text-align:center;"><h4>{{ profile.full_name }}</h4></div>
   </h3>
   <div class="popover-content">
-    <button type="button" class="btn btn-lg btn-primary" data-template="/contact-dialog/8" data-placement="left" data-animation="am-slide-left" bs-aside="aside" data-container="body">Contact me</button>
+    <button type="button" class="btn btn-lg btn-primary" onclick="window.open('/contact/{{ profile.user_id }}');">Contact me</button>
   </div>
 </div>      
