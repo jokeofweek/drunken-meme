@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
+{% block html_tag_extra%}ng-app="Smapchat"{% endblock %}
+
 {% block title %}smapchat{% endblock %}
 
 {% block content %}
-<div class="jumbotron"  ng-controller="SmapchatCtrl">
+<div ng-controller="SmapchatCtrl" class="jumbotron">
   <h1>Getting Started with GoAngular Chat</h1>
 
   <!-- Messages displayed -->
@@ -25,13 +27,13 @@
 
 {% block scripts %}
 <!-- Dependencies -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
 <script src="//cdn.goinstant.net/v1/platform.min.js"></script>
 <script src="//cdn.goinstant.net/integrations/goangular/latest/goangular.min.js"></script>
 
 <!-- Angular App -->
 <script>
-/*
+//*
   var chatApp = angular.module('Smapchat', ['goangular']);
 
   chatApp.config(function($interpolateProvider) {
