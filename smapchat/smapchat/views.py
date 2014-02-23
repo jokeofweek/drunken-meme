@@ -39,5 +39,17 @@ def send_mail(request):
     return HttpResponse(user + " " + pw + " " + reciever + " " + sender)
 
 def send_text(request):
-    return HttpResponse("This is a text!")
+    # Your Account Sid and Auth Token from twilio.com/user/account
+    account_sid = request.GET['user']
+    auth_token = request.GET['auth']
+    body = request.GET['body']
+    txtto = request.GET['to']
+    txtfrom = request.GET['from']
+    client = TwilioRestClient(account_sid, auth_token)
+
+    message = client.sms.messages.create(body=body,
+        to=txtto,    # Replace with your phone number
+            from_=txtfrom) # Replace with your Twilio number
+    print message.sid
+    return HttpResponse("Sent a text to " + txtto +"!")
 
